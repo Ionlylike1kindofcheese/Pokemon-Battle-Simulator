@@ -4,9 +4,9 @@ public class Program
 {
     static void Main(string[] args)
     {
-        Console.WriteLine("Give the first trainer a name: ");
+        Console.Write("Give the first trainer a name: ");
         Trainer firstTrainer = new Trainer(Console.ReadLine());
-        Console.WriteLine("Give the second trainer a name: ");
+        Console.Write("Give the second trainer a name: ");
         Trainer secondTrainer = new Trainer(Console.ReadLine());
         for (int index = 0; index < Trainer.beltCount(firstTrainer); index++)
         {
