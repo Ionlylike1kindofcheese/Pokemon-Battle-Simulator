@@ -86,7 +86,7 @@ public class Pokeball
 public class Trainer
 {
     private string name;
-    public List<Pokeball> belt;
+    private List<Pokeball> belt;
 
     public string Name { get { return name; } set { name = value; } }
     public List<Pokeball> Belt { get { return belt; } }
