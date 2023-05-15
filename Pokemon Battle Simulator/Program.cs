@@ -1,60 +1,122 @@
-﻿namespace pokemon;
+namespace pokemon;
+
+public class Program
+{
+    static void Main(string[] args)
+    {
+        Console.WriteLine("Give the first trainer a name: ");
+        Trainer firstTrainer = new Trainer(Console.ReadLine());
+        Console.WriteLine("Give the second trainer a name: ");
+        Trainer secondTrainer = new Trainer(Console.ReadLine());
+        for (int index = 0; index < Trainer.beltCount(firstTrainer); index++)
+        {
+            Charmander trainer1Pokemon = Pokeball.getPokemon(firstTrainer.Belt[index]);
+            firstTrainer.throwPokeball(firstTrainer.Name, trainer1Pokemon);
+            trainer1Pokemon.UseBattleCry(trainer1Pokemon.Name);
+
+            Charmander trainer2Pokemon = Pokeball.getPokemon(secondTrainer.Belt[index]);
+            secondTrainer.throwPokeball(secondTrainer.Name, trainer2Pokemon);
+            trainer2Pokemon.UseBattleCry(trainer2Pokemon.Name);
+
+            firstTrainer.returnToPokeball(firstTrainer.Name, trainer1Pokemon);
+            secondTrainer.returnToPokeball(secondTrainer.Name, trainer2Pokemon);
+            Console.WriteLine();
+        }
+        Console.ReadLine();
+    }
+
+    public static string FirstCharToUpper(string input)
+    {
+        switch (input)
+        {
+            case null: throw new ArgumentNullException(nameof(input));
+            case "": throw new ArgumentException($"{nameof(input)} cannot be empty", nameof(input));
+            default: return input[0].ToString().ToUpper() + input.Substring(1);
+        }
+    }
+}
+
 
 public class Charmander
 {
     private string name;
     private string strength;
     private string weakness;
+
+    public string Name { get { return name; } set { name = value; } }
+
     public Charmander(string name, string strength, string weakness)
     {
         this.name = name;
         this.strength = strength;
         this.weakness = weakness;
     }
+
     public void UseBattleCry(string charmanderName)
     {
-        if (charmanderName != "")
+        Console.Write(charmanderName + " uses it's battle cry: \"");
+        for (int i = 0; i < 10; i++)
         {
-            for (int i = 0; i < 10; i++)
-            {
-                Console.Write(charmanderName + "! ");
-            }
+            if (charmanderName != "") { Console.Write(charmanderName + "! "); }
+            else { Console.Write("Charmander! "); }
         }
-        else
-        {
-            for (int i = 0;i < 10; i++)
-            {
-                Console.Write("Charmander! ");
-            }
-        }
-        Console.WriteLine();
+        Console.WriteLine("\"");
     }
-    static void Main(string[] args)
+}
+
+
+public class Pokeball
+{
+    private Charmander pokemon;
+    private bool isEmpty;
+
+    public Pokeball(Charmander pokemon = null)
     {
-        Console.WriteLine("Give your Charmander a name!: ");
-        string givenName = Console.ReadLine();
-        Charmander myCharmander = new Charmander(givenName, "fire", "water");
-        myCharmander.UseBattleCry(givenName);
-        bool voidLoop = true;
-        while (voidLoop)
+        this.pokemon = pokemon;
+        this.isEmpty = pokemon == null;
+    }
+
+    public static Charmander getPokemon(Pokeball curBall)
+    {
+        return curBall.pokemon;
+    } 
+}
+
+
+public class Trainer
+{
+    private string name;
+    public List<Pokeball> belt;
+
+    public string Name { get { return name; } set { name = value; } }
+    public List<Pokeball> Belt { get { return belt; } }
+
+    public Trainer(string name) 
+    { 
+        this.name = Program.FirstCharToUpper(name.ToLower());
+        this.belt = new List<Pokeball>();
+
+        for (int index = 1; index < 7; index++)
         {
-            Console.WriteLine("Type 'rename' to rename your Charmander or 'quit' to exit the program:");
-            string incomingCommand = Console.ReadLine();
-            switch (incomingCommand)
-            {
-                case "rename":
-                    Console.WriteLine("Enter a new name for your Charmander:");
-                    givenName = Console.ReadLine();
-                    myCharmander = new Charmander(givenName, "fire", "water");
-                    myCharmander.UseBattleCry(givenName);
-                    break;
-                case "quit":
-                    voidLoop = false;
-                    break;
-                default:
-                    Console.WriteLine("Invalid command! Try again!");
-                    break;
-            }
+            Pokeball pokeball = new Pokeball(new Charmander("Charmander" + index, "fire", "water"));
+            this.belt.Add(pokeball);
         }
+    }
+
+    public static int beltCount(Trainer curTrainer)
+    {
+        return curTrainer.belt.Count;
+    }
+
+    public void throwPokeball(string trainerName, Charmander pokemonObj)
+    {
+        if (pokemonObj != null) { Console.WriteLine(trainerName + " throws a pokeball. " + pokemonObj.Name + " releases out of it's ball!"); }
+        else { Console.WriteLine(trainerName + " throws an empty ball..."); }
+    }
+
+    public void returnToPokeball(string trainerName, Charmander pokemonObj)
+    {
+        if (pokemonObj != null) { Console.WriteLine(trainerName + " returns " + pokemonObj.Name + " back to it's pokeball!"); }
+        else { Console.WriteLine(trainerName + " returns the empty pokeball!"); }
     }
 }
