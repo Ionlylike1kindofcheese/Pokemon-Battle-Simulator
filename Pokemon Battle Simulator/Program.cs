@@ -25,6 +25,7 @@ public class Program
         Console.ReadLine();
     }
 
+
     public static string FirstCharToUpper(string input)
     {
         switch (input)
@@ -45,12 +46,14 @@ public class Charmander
 
     public string Name { get { return name; } set { name = value; } }
 
+
     public Charmander(string name, string strength, string weakness)
     {
         this.name = name;
         this.strength = strength;
         this.weakness = weakness;
     }
+
 
     public void UseBattleCry(string charmanderName)
     {
@@ -70,11 +73,13 @@ public class Pokeball
     private Charmander pokemon;
     private bool isEmpty;
 
+
     public Pokeball(Charmander pokemon = null)
     {
         this.pokemon = pokemon;
         this.isEmpty = pokemon == null;
     }
+
 
     public static Charmander getPokemon(Pokeball curBall)
     {
@@ -91,6 +96,7 @@ public class Trainer
     public string Name { get { return name; } set { name = value; } }
     public List<Pokeball> Belt { get { return belt; } }
 
+
     public Trainer(string name) 
     { 
         this.name = Program.FirstCharToUpper(name.ToLower());
@@ -103,16 +109,19 @@ public class Trainer
         }
     }
 
+
     public static int beltCount(Trainer curTrainer)
     {
         return curTrainer.belt.Count;
     }
+
 
     public void throwPokeball(string trainerName, Charmander pokemonObj)
     {
         if (pokemonObj != null) { Console.WriteLine(trainerName + " throws a pokeball. " + pokemonObj.Name + " releases out of it's ball!"); }
         else { Console.WriteLine(trainerName + " throws an empty ball..."); }
     }
+
 
     public void returnToPokeball(string trainerName, Charmander pokemonObj)
     {
