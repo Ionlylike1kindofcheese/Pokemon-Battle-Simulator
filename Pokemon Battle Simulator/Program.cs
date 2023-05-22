@@ -1,5 +1,8 @@
 namespace pokemon;
 
+
+// Main execution!!!
+
 public class Program
 {
     static void Main(string[] args)
@@ -10,11 +13,11 @@ public class Program
         Trainer secondTrainer = new Trainer(Console.ReadLine());
         for (int index = 0; index < Trainer.beltCount(firstTrainer); index++)
         {
-            Charmander trainer1Pokemon = Pokeball.getPokemon(firstTrainer.Belt[index]);
+            Pokemon trainer1Pokemon = Pokeball.getPokemon(firstTrainer.Belt[index]);
             firstTrainer.throwPokeball(firstTrainer.Name, trainer1Pokemon);
             trainer1Pokemon.UseBattleCry(trainer1Pokemon.Name);
 
-            Charmander trainer2Pokemon = Pokeball.getPokemon(secondTrainer.Belt[index]);
+            Pokemon trainer2Pokemon = Pokeball.getPokemon(secondTrainer.Belt[index]);
             secondTrainer.throwPokeball(secondTrainer.Name, trainer2Pokemon);
             trainer2Pokemon.UseBattleCry(trainer2Pokemon.Name);
 
@@ -38,29 +41,36 @@ public class Program
 }
 
 
-public class Charmander
+// Pokemon-related classes
+
+public abstract class Pokemon
 {
     private string name;
-    private string strength;
-    private string weakness;
 
     public string Name { get { return name; } set { name = value; } }
 
-
-    public Charmander(string name, string strength, string weakness)
+    public Pokemon(string name)
     {
         this.name = name;
-        this.strength = strength;
-        this.weakness = weakness;
     }
 
+    public abstract void UseBattleCry(string pokemonName);
+}
 
-    public void UseBattleCry(string charmanderName)
+
+public class Charmander : Pokemon
+{
+    private const string strength = "fire";
+    private const string weakness = "water";
+
+    public Charmander(string name) : base(name) { }
+
+    public override void UseBattleCry(string pokemonName)
     {
-        Console.Write(charmanderName + " uses it's battle cry: \"");
+        Console.Write(pokemonName + " uses it's battle cry: \"");
         for (int i = 0; i < 10; i++)
         {
-            if (charmanderName != "") { Console.Write(charmanderName + "! "); }
+            if (pokemonName != "") { Console.Write(pokemonName + "! "); }
             else { Console.Write("Charmander! "); }
         }
         Console.WriteLine("\"");
@@ -68,25 +78,47 @@ public class Charmander
 }
 
 
-public class Pokeball
+public class Squirtle : Pokemon
 {
-    private Charmander pokemon;
-    private bool isEmpty;
+    private const string strength = "water";
+    private const string weakness = "grass";
 
+    public Squirtle(string name) : base(name) { }
 
-    public Pokeball(Charmander pokemon = null)
+    public override void UseBattleCry(string pokemonName)
     {
-        this.pokemon = pokemon;
-        this.isEmpty = pokemon == null;
+        Console.Write(pokemonName + " uses it's battle cry: \"");
+        for (int i = 0; i < 10; i++)
+        {
+            if (pokemonName != "") { Console.Write(pokemonName + "! "); }
+            else { Console.Write("Squirtle! "); }
+        }
+        Console.WriteLine("\"");
     }
-
-
-    public static Charmander getPokemon(Pokeball curBall)
-    {
-        return curBall.pokemon;
-    } 
 }
 
+
+public class Bulbasaur : Pokemon
+{
+    private const string strength = "grass";
+    private const string weakness = "fire";
+
+    public Bulbasaur(string name) : base(name) { }
+
+    public override void UseBattleCry(string pokemonName)
+    {
+        Console.Write(pokemonName + " uses it's battle cry: \"");
+        for (int i = 0; i < 10; i++)
+        {
+            if (pokemonName != "") { Console.Write(pokemonName + "! "); }
+            else { Console.Write("Bulbasaur! "); }
+        }
+        Console.WriteLine("\"");
+    }
+}
+
+
+// Trainer-related classes
 
 public class Trainer
 {
@@ -102,10 +134,14 @@ public class Trainer
         this.name = Program.FirstCharToUpper(name.ToLower());
         this.belt = new List<Pokeball>();
 
-        for (int index = 1; index < 7; index++)
+        for (int index = 1; index < 3; index++)
         {
-            Pokeball pokeball = new Pokeball(new Charmander("Charmander" + index, "fire", "water"));
-            this.belt.Add(pokeball);
+            Pokeball charBall = new Pokeball(new Charmander("Charmander" + index));
+            Pokeball sqBall = new Pokeball(new Squirtle("Squirtle" + index));
+            Pokeball bulbBall = new Pokeball(new Bulbasaur("Bulbasaur" + index));         
+            this.belt.Add(charBall);
+            this.belt.Add(sqBall);
+            this.belt.Add(bulbBall);
         }
     }
 
@@ -116,16 +152,36 @@ public class Trainer
     }
 
 
-    public void throwPokeball(string trainerName, Charmander pokemonObj)
+    public void throwPokeball(string trainerName, Pokemon pokemonObj)
     {
         if (pokemonObj != null) { Console.WriteLine(trainerName + " throws a pokeball. " + pokemonObj.Name + " releases out of it's ball!"); }
         else { Console.WriteLine(trainerName + " throws an empty ball..."); }
     }
 
 
-    public void returnToPokeball(string trainerName, Charmander pokemonObj)
+    public void returnToPokeball(string trainerName, Pokemon pokemonObj)
     {
         if (pokemonObj != null) { Console.WriteLine(trainerName + " returns " + pokemonObj.Name + " back to it's pokeball!"); }
         else { Console.WriteLine(trainerName + " returns the empty pokeball!"); }
+    }
+}
+
+
+public class Pokeball
+{
+    private Pokemon pokemon;
+    private bool isEmpty;
+
+
+    public Pokeball(Pokemon pokemon = null)
+    {
+        this.pokemon = pokemon;
+        this.isEmpty = pokemon == null;
+    }
+
+
+    public static Pokemon getPokemon(Pokeball curBall)
+    {
+        return curBall.pokemon;
     }
 }
