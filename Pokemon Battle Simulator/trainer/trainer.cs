@@ -1,7 +1,5 @@
 ﻿namespace Trainer;
 
-// Trainer-related classes
-
 using Main;
 using Pokemon;
 
@@ -21,9 +19,9 @@ public class Trainer
 
         for (int index = 1; index < 3; index++)
         {
-            Pokeball charBall = new Pokeball(new Charmander("Charmander" + index));
-            Pokeball sqBall = new Pokeball(new Squirtle("Squirtle" + index));
-            Pokeball bulbBall = new Pokeball(new Bulbasaur("Bulbasaur" + index));
+            Pokeball charBall = new Pokeball(new Charmander("Charmander"));
+            Pokeball sqBall = new Pokeball(new Squirtle("Squirtle"));
+            Pokeball bulbBall = new Pokeball(new Bulbasaur("Bulbasaur"));
             this.belt.Add(charBall);
             this.belt.Add(sqBall);
             this.belt.Add(bulbBall);
@@ -48,25 +46,5 @@ public class Trainer
     {
         if (pokemonObj != null) { Console.WriteLine(trainerName + " returns " + pokemonObj.Name + " back to it's pokeball!"); }
         else { Console.WriteLine(trainerName + " returns the empty pokeball!"); }
-    }
-}
-
-
-public class Pokeball
-{
-    private Pokemon pokemon;
-    private bool isEmpty;
-
-
-    public Pokeball(Pokemon pokemon = null)
-    {
-        this.pokemon = pokemon;
-        this.isEmpty = pokemon == null;
-    }
-
-
-    public static Pokemon getPokemon(Pokeball curBall)
-    {
-        return curBall.pokemon;
     }
 }

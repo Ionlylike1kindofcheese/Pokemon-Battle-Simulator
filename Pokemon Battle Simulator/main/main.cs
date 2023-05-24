@@ -1,7 +1,5 @@
 namespace Main;
 
-// Main execution!!!
-
 using Pokemon;
 using Trainer;
 
