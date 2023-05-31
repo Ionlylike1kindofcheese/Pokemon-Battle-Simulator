@@ -2,10 +2,7 @@
 
 public class Squirtle : Pokemon
 {
-    private const string strength = "water";
-    private const string weakness = "grass";
-
-    public Squirtle(string name) : base(name) { }
+    public Squirtle(string name, string strength = "water", string weakness = "grass") : base(name, strength, weakness) { }
 
     public override void UseBattleCry(string pokemonName)
     {

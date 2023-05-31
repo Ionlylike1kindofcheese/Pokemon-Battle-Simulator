@@ -2,10 +2,7 @@
 
 public class Bulbasaur : Pokemon
 {
-    private const string strength = "grass";
-    private const string weakness = "fire";
-
-    public Bulbasaur(string name) : base(name) { }
+    public Bulbasaur(string name, string strength = "grass", string weakness = "fire") : base(name, strength, weakness) { }
 
     public override void UseBattleCry(string pokemonName)
     {

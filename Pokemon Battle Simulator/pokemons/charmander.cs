@@ -2,10 +2,7 @@
 
 public class Charmander : Pokemon
 {
-    private const string strength = "fire";
-    private const string weakness = "water";
-
-    public Charmander(string name) : base(name) { }
+    public Charmander(string name, string strength = "fire", string weakness = "water") : base(name, strength, weakness) { }
 
     public override void UseBattleCry(string pokemonName)
     {
