@@ -3,8 +3,6 @@
 public abstract class Pokemon
 {
     private string name;
-
-    public string Name { get { return name; } set { name = value; } }
     protected string Strength { get; }
     protected string Weakness { get; }
 
