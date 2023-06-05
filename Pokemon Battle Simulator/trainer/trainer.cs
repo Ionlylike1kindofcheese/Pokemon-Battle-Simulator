@@ -37,7 +37,7 @@ public class Trainer
 
     public void throwPokeball(string trainerName, Pokemon pokemonObj)
     {
-        if (pokemonObj != null) { Console.WriteLine(trainerName + " throws a pokeball. " + pokemonObj.Name + " releases out of it's ball!"); }
+        if (pokemonObj != null) { Console.WriteLine(trainerName + " releases " + pokemonObj.Name + " out of it's ball!"); }
         else { Console.WriteLine(trainerName + " throws an empty ball..."); }
     }
 
@@ -46,5 +46,17 @@ public class Trainer
     {
         if (pokemonObj != null) { Console.WriteLine(trainerName + " returns " + pokemonObj.Name + " back to it's pokeball!"); }
         else { Console.WriteLine(trainerName + " returns the empty pokeball!"); }
+    }
+
+
+    public List<Pokeball> deepCopyBelt(List<Pokeball> trainerBelt)
+    {
+        List<Pokeball> deepCopyBelt = new List<Pokeball>(trainerBelt.Count);
+        foreach (Pokeball pokeball in trainerBelt)
+        {
+            Pokeball duplicatePokeball = new Pokeball(Pokeball.getPokemon(pokeball));
+            deepCopyBelt.Add(duplicatePokeball);
+        }
+        return deepCopyBelt;
     }
 }

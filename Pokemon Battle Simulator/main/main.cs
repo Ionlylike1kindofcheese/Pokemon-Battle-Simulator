@@ -2,6 +2,7 @@ namespace Main;
 
 using Pokemon;
 using Trainer;
+using Fight;
 
 public class Program
 {
@@ -11,21 +12,7 @@ public class Program
         Trainer firstTrainer = new Trainer(Console.ReadLine());
         Console.Write("Give the second trainer a name: ");
         Trainer secondTrainer = new Trainer(Console.ReadLine());
-        for (int index = 0; index < Trainer.beltCount(firstTrainer); index++)
-        {
-            Pokemon trainer1Pokemon = Pokeball.getPokemon(firstTrainer.Belt[index]);
-            firstTrainer.throwPokeball(firstTrainer.Name, trainer1Pokemon);
-            trainer1Pokemon.UseBattleCry(trainer1Pokemon.Name);
-
-            Pokemon trainer2Pokemon = Pokeball.getPokemon(secondTrainer.Belt[index]);
-            secondTrainer.throwPokeball(secondTrainer.Name, trainer2Pokemon);
-            trainer2Pokemon.UseBattleCry(trainer2Pokemon.Name);
-
-            firstTrainer.returnToPokeball(firstTrainer.Name, trainer1Pokemon);
-            secondTrainer.returnToPokeball(secondTrainer.Name, trainer2Pokemon);
-            Console.WriteLine();
-        }
-        Console.ReadLine();
+        Arena.enterArena(firstTrainer, secondTrainer);
     }
 
 
@@ -37,5 +24,13 @@ public class Program
             case "": throw new ArgumentException($"{nameof(input)} cannot be empty", nameof(input));
             default: return input[0].ToString().ToUpper() + input.Substring(1);
         }
+    }
+
+
+    public static int randomNumber(int min, int max) 
+    {
+        Random rnd = new Random();
+        int chosenNumber = rnd.Next(min, max);
+        return chosenNumber;
     }
 }
