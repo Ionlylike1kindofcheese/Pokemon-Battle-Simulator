@@ -81,7 +81,7 @@ public class Battle
 
     public static Pokemon? fightRound(Pokemon pokemon1, Pokemon pokemon2, int curRound)
     {
-        Dictionary<Pokemon, string> strengths = new Dictionary<Pokemon, string>(); 
+        Dictionary<Pokemon, Pokemon.Types> strengths = new Dictionary<Pokemon, Pokemon.Types>(); 
         strengths.Add(pokemon1, Pokemon.getStrength(pokemon1));
         strengths.Add(pokemon2, Pokemon.getStrength(pokemon2));
         if (strengths[pokemon1] == strengths[pokemon2])
@@ -89,9 +89,9 @@ public class Battle
             Console.WriteLine($"it's a draw! (round {curRound.ToString()})");
             return null;
         }
-        else if ((strengths[pokemon1] == "fire" && strengths[pokemon2] == "grass") ||
-                (strengths[pokemon1] == "grass" && strengths[pokemon2] == "water") ||
-                (strengths[pokemon1] == "water" && strengths[pokemon2] == "fire"))
+        else if ((strengths[pokemon1] == Pokemon.Types.Fire && strengths[pokemon2] == Pokemon.Types.Grass) ||
+                (strengths[pokemon1] == Pokemon.Types.Grass && strengths[pokemon2] == Pokemon.Types.Water) ||
+                (strengths[pokemon1] == Pokemon.Types.Water && strengths[pokemon2] == Pokemon.Types.Fire))
         {
             Console.WriteLine($"{pokemon1.Name} wins! (round {curRound.ToString()})");
             return pokemon1;

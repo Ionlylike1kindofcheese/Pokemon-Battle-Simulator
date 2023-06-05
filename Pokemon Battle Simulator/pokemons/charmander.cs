@@ -2,7 +2,7 @@
 
 public class Charmander : Pokemon
 {
-    public Charmander(string name, string strength = "fire", string weakness = "water") : base(name, strength, weakness) { }
+    public Charmander(string name, Pokemon.Types strength = Pokemon.Types.Fire, Pokemon.Types weakness = Pokemon.Types.Water) : base(name, strength, weakness) { }
 
     public override void UseBattleCry(string pokemonName)
     {

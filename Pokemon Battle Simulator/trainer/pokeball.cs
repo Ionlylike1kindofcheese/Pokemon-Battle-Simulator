@@ -2,9 +2,9 @@
 
 using Pokemon;
 
-public class Pokeball
+public sealed class Pokeball
 {
-    private Pokemon pokemon;
+    private readonly Pokemon pokemon;
     private bool isEmpty;
 
 

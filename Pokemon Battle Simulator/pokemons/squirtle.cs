@@ -2,7 +2,7 @@
 
 public class Squirtle : Pokemon
 {
-    public Squirtle(string name, string strength = "water", string weakness = "grass") : base(name, strength, weakness) { }
+    public Squirtle(string name, Pokemon.Types strength = Pokemon.Types.Water, Pokemon.Types weakness = Pokemon.Types.Grass) : base(name, strength, weakness) { }
 
     public override void UseBattleCry(string pokemonName)
     {

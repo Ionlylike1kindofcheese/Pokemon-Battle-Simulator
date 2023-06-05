@@ -2,7 +2,7 @@
 
 public class Bulbasaur : Pokemon
 {
-    public Bulbasaur(string name, string strength = "grass", string weakness = "fire") : base(name, strength, weakness) { }
+    public Bulbasaur(string name, Pokemon.Types strength = Pokemon.Types.Grass, Pokemon.Types weakness = Pokemon.Types.Fire) : base(name, strength, weakness) { }
 
     public override void UseBattleCry(string pokemonName)
     {

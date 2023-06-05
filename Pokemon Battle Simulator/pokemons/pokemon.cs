@@ -2,13 +2,20 @@
 
 public abstract class Pokemon
 {
-    private string name;
-    protected string Strength { get; }
-    protected string Weakness { get; }
+    public enum Types
+    {
+        Fire,
+        Grass,
+        Water
+    }
 
-    public string Name { get { return name; } set { name = value; } }
+    private readonly string name;
+    protected Types Strength { get; }
+    protected Types Weakness { get; }
 
-    public Pokemon(string name, string strength, string weakness)
+    public string Name { get { return name; } }
+
+    public Pokemon(string name, Types strength, Types weakness)
     {
         this.name = name;
         Strength = strength;
@@ -17,7 +24,7 @@ public abstract class Pokemon
 
     public abstract void UseBattleCry(string pokemonName);
 
-    public static string getWeakness(Pokemon pokeObject) { return pokeObject.Weakness; }
+    public static Types getWeakness(Pokemon pokeObject) { return pokeObject.Weakness; }
 
-    public static string getStrength(Pokemon pokeObject) { return pokeObject.Strength; }
+    public static Types getStrength(Pokemon pokeObject) { return pokeObject.Strength; }
 }

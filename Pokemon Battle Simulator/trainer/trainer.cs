@@ -5,27 +5,43 @@ using Pokemon;
 
 public class Trainer
 {
-    private string name;
-    private List<Pokeball> belt;
+    private readonly string name;
+    private readonly List<Pokeball> belt;
 
-    public string Name { get { return name; } set { name = value; } }
+    public string Name { get { return name; } }
     public List<Pokeball> Belt { get { return belt; } }
 
 
     public Trainer(string name)
     {
+        const int beltLength = 6;
         this.name = Program.FirstCharToUpper(name.ToLower());
-        this.belt = new List<Pokeball>();
+        List<Pokeball> thisBelt = createBelt();
+        if (thisBelt.Count <= beltLength)
+        {
+            this.belt = thisBelt;
+        }
+        else
+        {
+            throw new Exception();
+        }
+    }
+
+
+    private List<Pokeball> createBelt()
+    {
+        List<Pokeball> belt = new List<Pokeball>();
 
         for (int index = 1; index < 3; index++)
         {
             Pokeball charBall = new Pokeball(new Charmander("Charmander"));
             Pokeball sqBall = new Pokeball(new Squirtle("Squirtle"));
             Pokeball bulbBall = new Pokeball(new Bulbasaur("Bulbasaur"));
-            this.belt.Add(charBall);
-            this.belt.Add(sqBall);
-            this.belt.Add(bulbBall);
+            belt.Add(charBall);
+            belt.Add(sqBall);
+            belt.Add(bulbBall);
         }
+        return belt;
     }
 
 
